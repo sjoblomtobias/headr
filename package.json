@@ -1,0 +1,107 @@
+{
+	"name": "headr",
+	"displayName": "headr",
+	"publisher": "sjoblomtobias",
+	"description": "Adds customizable headers to new files based on user-defined templates.",
+	"version": "1.0.0",
+	"engines": {
+		"vscode": "^1.104.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onStartupFinished"
+	],
+	"main": "./dist/headr.js",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/sjoblomtobias/headr.git"
+	},
+	"contributes": {
+		"configuration": {
+			"type": "object",
+			"title": "headr",
+			"properties": {
+				"headr.fileExtensions": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"default": [
+						".js",
+						".ts"
+					],
+					"description": "File extensions to watch for header insertion (e.g. .js & .ts)"
+				},
+				"headr.lines": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"default": [
+						"/**",
+						" * @author {AUTHOR}",
+						" * @since {SINCE}",
+						" * @summary",
+						" */"
+					],
+					"description": "Lines to insert as header at the top of new files. Each entry is a line. You can use {AUTHOR}, {SINCE}, {SUMMARY} as variables."
+				},
+				"headr.author": {
+					"type": "string",
+					"default": "",
+					"description": "Name to use for the {AUTHOR} variable in header lines. Can be set globally or per project."
+				},
+				"headr.ignoreFolders": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"default": [
+						"node_modules",
+						".git",
+						".vscode",
+						"dist",
+						"out"
+					],
+					"description": "Folders to ignore for header insertion."
+				}
+			}
+		},
+		"commands": [
+			{
+				"command": "headr.insertHeader",
+				"title": "headr: Insert Header"
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./ && tsc-alias",
+		"watch": "tsc -watch -p ./ & tsc-alias -w",
+		"pretest": "npm run compile && npm run lint",
+		"lint": "eslint src",
+		"test": "vscode-test"
+	},
+	"devDependencies": {
+		"@eslint/js": "^9.35.0",
+		"@types/mocha": "^10.0.10",
+		"@types/node": "22.x",
+		"@types/vscode": "^1.104.0",
+		"@typescript-eslint/eslint-plugin": "^8.44.0",
+		"@typescript-eslint/parser": "^8.42.0",
+		"@vscode/test-cli": "^0.0.11",
+		"@vscode/test-electron": "^2.5.2",
+		"eslint": "^9.34.0",
+		"eslint-config-prettier": "^10.1.8",
+		"eslint-import-resolver-typescript": "^4.4.4",
+		"eslint-plugin-import": "^2.32.0",
+		"eslint-plugin-prettier": "^5.5.4",
+		"globals": "^16.4.0",
+		"prettier": "^3.6.2",
+		"tsc-alias": "^1.8.16",
+		"typescript": "^5.9.2",
+		"typescript-eslint": "^8.44.0"
+	}
+}
